@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Penilaian Mahasiswa</title>
+
+    <style>
+        body{
+            font-family: Arial;
+            background-color: #f2f2f2;
+            padding: 30px;
+        }
+
+        .container{
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        input{
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        button{
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        h2{
+            text-align: center;
+        }
+
+        #hasil{
+            margin-top: 20px;
+            background-color: #eeeeee;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <h2>Sistem Penilaian Mahasiswa</h2>
+
+        <label>Nama Mahasiswa</label>
+        <input type="text" id="nama">
+
+        <label>Nilai Tugas</label>
+        <input type="number" id="tugas">
+
+        <label>Nilai UTS</label>
+        <input type="number" id="uts">
+
+        <label>Nilai UAS</label>
+        <input type="number" id="uas">
+
+        <button onclick="prosesNilai()">
+            Proses Nilai
+        </button>
+
+        <div id="hasil"></div>
+
+    </div>
+
+    <script>
+
+        function prosesNilai(){
+
+            // Mengambil data input
+            let nama = document.getElementById("nama").value;
+
+            let tugas = Number(document.getElementById("tugas").value);
+
+            let uts = Number(document.getElementById("uts").value);
+
+            let uas = Number(document.getElementById("uas").value);
+
+            // Operator Aritmatika
+            let rataRata = (tugas + uts + uas) / 3;
+
+            let grade = "";
+            let status = "";
+            let bonus = 0;
+
+            // If Else Bertingkat
+            if(rataRata >= 90){
+
+                grade = "A";
+                status = "Lulus Dengan Sangat Baik";
+                bonus += 10;
+
+            }else if(rataRata >= 80){
+
+                grade = "B";
+                status = "Lulus";
+                bonus += 5;
+
+            }else if(rataRata >= 70){
+
+                grade = "C";
+                status = "Lulus Bersyarat";
+
+            }else if(rataRata >= 60){
+
+                grade = "D";
+                status = "Remedial";
+
+            }else{
+
+                grade = "E";
+                status = "Tidak Lulus";
+
+            }
+
+            // Nilai akhir setelah bonus
+            let nilaiAkhir = rataRata + bonus;
+
+            // Operator Pembanding Tambahan
+            let predikat = "";
+
+            if(nilaiAkhir >= 100){
+                predikat = "Mahasiswa Genius";
+            }else if(nilaiAkhir >= 85){
+                predikat = "Mahasiswa Berprestasi";
+            }else{
+                predikat = "Mahasiswa Biasa";
+            }
+
+            // Menampilkan hasil
+            document.getElementById("hasil").innerHTML =
+
+                "<h3>Hasil Penilaian</h3>" +
+
+                "Nama : " + nama + "<br><br>" +
+
+                "Rata-rata : " + rataRata.toFixed(2) + "<br><br>" +
+
+                "Bonus : " + bonus + "<br><br>" +
+
+                "Nilai Akhir : " + nilaiAkhir.toFixed(2) + "<br><br>" +
+
+                "Grade : " + grade + "<br><br>" +
+
+                "Status : " + status + "<br><br>" +
+
+                "Predikat : " + predikat;
+
+        }
+
+    </script>
+
+</body>
+</html>
