@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator Nilai Mahasiswa</title>
+</head>
+<body>
+
+    <h1>Kalkulator Nilai Mahasiswa</h1>
+
+    <input type="number" id="nilai" placeholder="Masukkan nilai">
+    <button onclick="cekNilai()">Cek</button>
+
+    <h2 id="hasil"></h2>
+
+    <script>
+
+        function cekNilai() {
+
+            // Penugasan
+            let nilai = Number(document.getElementById("nilai").value);
+
+            // Aritmatika
+            let bonus = nilai + 5;
+
+            let hasil = "";
+
+            // Pembanding
+            if (bonus >= 75) {
+                hasil = "Lulus";
+            } else {
+                hasil = "Tidak Lulus";
+            }
+
+            document.getElementById("hasil").innerHTML =
+                "Nilai setelah bonus: " + bonus + "<br>" + hasil;
+        }
+
+    </script>
+
+</body>
+</html>
