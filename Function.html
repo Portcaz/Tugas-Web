@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Gaji Karyawan</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background-color: #f4f4f4;
+            padding: 30px;
+        }
+
+        .container{
+            width: 450px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+
+        h2{
+            text-align: center;
+        }
+
+        input, select{
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        button{
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #hasil{
+            margin-top: 20px;
+            background-color: #eeeeee;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="container">
+
+        <h2>Sistem Gaji Karyawan</h2>
+
+        <label>Nama Karyawan</label>
+        <input type="text" id="nama">
+
+        <label>Jam Kerja</label>
+        <input type="number" id="jamKerja">
+
+        <label>Jabatan</label>
+        <select id="jabatan">
+            <option value="staff">Staff</option>
+            <option value="supervisor">Supervisor</option>
+            <option value="manager">Manager</option>
+        </select>
+
+        <button onclick="prosesGaji()">
+            Hitung Gaji
+        </button>
+
+        <div id="hasil"></div>
+
+    </div>
+
+    <script>
+
+        // FUNCTION 1
+        // Menentukan gaji pokok berdasarkan jabatan
+        function hitungGajiPokok(jabatan){
+
+            if(jabatan == "staff"){
+                return 3000000;
+            }
+            else if(jabatan == "supervisor"){
+                return 5000000;
+            }
+            else{
+                return 8000000;
+            }
+
+        }
+
+        // FUNCTION 2
+        // Menghitung bonus lembur
+        function hitungLembur(jamKerja){
+
+            let lembur = 0;
+
+            if(jamKerja > 160){
+
+                lembur = (jamKerja - 160) * 25000;
+
+            }
+
+            return lembur;
+
+        }
+
+        // FUNCTION 3
+        // Menghitung pajak
+        function hitungPajak(total){
+
+            let pajak = 0;
+
+            if(total >= 10000000){
+
+                pajak = total * 0.10;
+
+            }
+            else if(total >= 7000000){
+
+                pajak = total * 0.05;
+
+            }
+            else{
+
+                pajak = total * 0.02;
+
+            }
+
+            return pajak;
+
+        }
+
+        // FUNCTION 4
+        // Menentukan predikat karyawan
+        function tentukanPredikat(gajiBersih){
+
+            if(gajiBersih >= 10000000){
+
+                return "Karyawan Elite";
+
+            }
+            else if(gajiBersih >= 7000000){
+
+                return "Karyawan Profesional";
+
+            }
+            else{
+
+                return "Karyawan Standar";
+
+            }
+
+        }
+
+        // FUNCTION UTAMA
+        function prosesGaji(){
+
+            // Mengambil data input
+            let nama = document.getElementById("nama").value;
+
+            let jamKerja = Number(document.getElementById("jamKerja").value);
+
+            let jabatan = document.getElementById("jabatan").value;
+
+            // Memanggil function lain
+            let gajiPokok = hitungGajiPokok(jabatan);
+
+            let bonusLembur = hitungLembur(jamKerja);
+
+            // Operator Aritmatika
+            let totalGaji = gajiPokok + bonusLembur;
+
+            let pajak = hitungPajak(totalGaji);
+
+            let gajiBersih = totalGaji - pajak;
+
+            let predikat = tentukanPredikat(gajiBersih);
+
+            // Menampilkan hasil
+            document.getElementById("hasil").innerHTML =
+
+                "<h3>Detail Gaji</h3>" +
+
+                "Nama : " + nama + "<br><br>" +
+
+                "Jabatan : " + jabatan + "<br><br>" +
+
+                "Jam Kerja : " + jamKerja + "<br><br>" +
+
+                "Gaji Pokok : Rp " + gajiPokok.toLocaleString() + "<br><br>" +
+
+                "Bonus Lembur : Rp " + bonusLembur.toLocaleString() + "<br><br>" +
+
+                "Total Gaji : Rp " + totalGaji.toLocaleString() + "<br><br>" +
+
+                "Pajak : Rp " + pajak.toLocaleString() + "<br><br>" +
+
+                "Gaji Bersih : Rp " + gajiBersih.toLocaleString() + "<br><br>" +
+
+                "Predikat : " + predikat;
+
+        }
+
+    </script>
+
+</body>
+</html>
